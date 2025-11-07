@@ -188,7 +188,41 @@ document.addEventListener('DOMContentLoaded', function () {
             modalThumbnails.firstChild.classList.add('active');
         }
 
+        // Add keyboard navigation
+        let currentIndex = Array.from(thumbnails).findIndex(thumb => thumb.src === mainImageSrc);
+        if (currentIndex === -1) currentIndex = 0;
+
+        modal.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                currentIndex = (currentIndex + 1) % thumbnails.length;
+                const newSrc = thumbnails[currentIndex].src;
+                modalImage.src = newSrc;
+
+                // Update active class
+                document.querySelectorAll('.modal-thumbnails img').forEach(img => {
+                    img.classList.remove('active');
+                });
+                modalThumbnails.children[currentIndex].classList.add('active');
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                currentIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                const newSrc = thumbnails[currentIndex].src;
+                modalImage.src = newSrc;
+
+                // Update active class
+                document.querySelectorAll('.modal-thumbnails img').forEach(img => {
+                    img.classList.remove('active');
+                });
+                modalThumbnails.children[currentIndex].classList.add('active');
+            }
+        });
+
         // Show modal
         modal.style.display = 'block';
+        modal.setAttribute('tabindex', '0');
+        modal.focus();
     }
 });

@@ -76,14 +76,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Header scroll effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.backdropFilter = 'blur(10px)';
-        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+    if (window.scrollY > 80) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.08)';
     } else {
-        header.style.background = 'var(--white)';
-        header.style.backdropFilter = 'none';
-        header.style.boxShadow = 'none';
+        header.style.background = 'var(--glass)';
+        header.style.backdropFilter = 'blur(15px)';
+        header.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.06)';
     }
 });
 
@@ -98,12 +98,16 @@ if (contactForm) {
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        // In a real application, you would send this data to a server
-        // For now, we'll just show an alert
-        alert(`Thank you for your message, ${name}! I'll get back to you soon.`);
-
-        // Reset form
-        contactForm.reset();
+        // Simple validation
+        if (name && email && message) {
+            // In a real application, you would send this data to a server
+            // For now, we'll just show a confirmation
+            alert(`Thank you for your message, ${name}! I'll get back to you soon.`);
+            // Reset form
+            contactForm.reset();
+        } else {
+            alert('Please fill in all fields before submitting.');
+        }
     });
 }
 
